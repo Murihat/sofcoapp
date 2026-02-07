@@ -1,0 +1,112 @@
+############################
+# Miscellaneous
+############################
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+.atom/
+.build/
+.buildlog/
+.history
+.svn/
+.swiftpm/
+migrate_working_dir/
+
+############################
+# IntelliJ / Android Studio
+############################
+*.iml
+*.ipr
+*.iws
+.idea/
+
+############################
+# VS Code
+############################
+.vscode/
+
+############################
+# Flutter / Dart / Pub
+############################
+**/doc/api/
+**/ios/Flutter/.last_build_id
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+/build/
+/coverage/
+.packages
+
+############################
+# Android (FULL IGNORE)
+############################
+android/
+android/**
+
+# Gradle
+.gradle/
+gradle-wrapper.jar
+local.properties
+key.properties
+
+# Android build outputs (extra safety)
+android/app/debug/
+android/app/profile/
+android/app/release/
+
+############################
+# iOS (FULL IGNORE)
+############################
+ios/
+ios/**
+
+# CocoaPods
+Pods/
+.symlinks/
+Flutter/ephemeral/
+
+# Xcode user data
+*.xcuserstate
+*.xccheckout
+*.xcscmblueprint
+DerivedData/
+
+############################
+# Other Platforms (optional)
+############################
+web/
+macos/
+windows/
+linux/
+
+############################
+# Symbolication / Obfuscation
+############################
+app.*.symbols
+app.*.map.json
+
+############################
+# Environment / Secrets
+############################
+.env
+.env.*
+env/.env*
+!env/.env.example
+*.jks
+*.keystore
+
+
+############################
+# Firebase (if used)
+############################
+google-services.json
+GoogleService-Info.plist
+
+############################
+# Optional: Lock file
+############################
+pubspec.lock
