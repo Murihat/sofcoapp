@@ -137,14 +137,8 @@ class DashboardPage extends StatelessWidget {
                             _MenuItem(
                               icon: Icons.history,
                               title: 'Attendance History',
-                              onTap: () {
-                                Get.snackbar(
-                                  'Info',
-                                  'Attendance History feature coming soon',
-                                  backgroundColor: const Color(0xFF203A43),
-                                  colorText: Colors.white,
-                                );
-                              },
+                              onTap: () =>
+                                  Get.toNamed(Routes.ATTENDANCE_HISTORY),
                             ),
                           ],
                         ),
