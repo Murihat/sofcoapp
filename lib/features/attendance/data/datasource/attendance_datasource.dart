@@ -1,12 +1,22 @@
+import 'dart:io';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class AttendanceDatasource {
   final SupabaseClient _client = Supabase.instance.client;
 
-  /// INSERT clock in / out
+  Future<String> uploadPhoto(File file, int userId) async {
+    final fileName =
+        'attendance_${userId}_${DateTime.now().millisecondsSinceEpoch}.jpg';
+
+    await _client.storage.from('attendance_photos').upload(fileName, file);
+
+    return _client.storage.from('attendance_photos').getPublicUrl(fileName);
+  }
+
   Future<void> insertAttendance({
     required int userId,
-    required String type, // IN / OUT
+    required String type,
+    required String photoUrl,
   }) async {
     final now = DateTime.now();
 
@@ -15,6 +25,7 @@ class AttendanceDatasource {
       'attendance_type': type,
       'attendance_date': now.toIso8601String().split('T').first,
       'attendance_time': now.toIso8601String().split('T')[1].substring(0, 8),
+      'photo_url': photoUrl,
     });
   }
 

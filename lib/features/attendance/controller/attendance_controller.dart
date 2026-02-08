@@ -1,5 +1,10 @@
+import 'dart:io';
+
 import 'package:get/get.dart';
 import 'package:sofcotest/app/auth/data/model/user_model.dart';
+import '../../../app/helper/error_snackbar_helper.dart';
+import '../../../app/helper/image_compress_helper.dart';
+import '../../../app/helper/success_snackbar_helper.dart';
 import '../../../app/routes/app_router.dart';
 import '../../../app/storage/app_storage.dart';
 import '../data/datasource/attendance_datasource.dart';
@@ -28,13 +33,16 @@ class AttendanceController extends GetxController {
     history.value = data.map((e) => AttendanceModel.fromJson(e)).toList();
   }
 
-  Future<void> checkIn() async {
-    await _ds.insertAttendance(userId: user.id, type: 'IN');
-    loadHistory();
-  }
+  Future<void> submitAttendance({
+    required String type,
+    required File imageFile,
+  }) async {
+    final compressed = await ImageCompressHelper.compress(imageFile);
 
-  Future<void> checkOut() async {
-    await _ds.insertAttendance(userId: user.id, type: 'OUT');
+    final photoUrl = await _ds.uploadPhoto(compressed, user.id);
+
+    await _ds.insertAttendance(userId: user.id, type: type, photoUrl: photoUrl);
+
     loadHistory();
   }
 }

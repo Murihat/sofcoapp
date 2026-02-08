@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import '../../features/attendance/binding/attendance_binding.dart';
+import '../../features/attendance/pages/attendance_camera_page.dart';
 import '../../features/attendance/pages/attendance_page.dart';
 import '../../features/auth/binding/auth_binding.dart';
 import '../../features/auth/pages/login_page.dart';
@@ -15,6 +16,7 @@ class Routes {
   static const REGISTER = '/register';
   static const DASHBOARD = '/dashboard';
   static const ATTENDANCE = '/attendance';
+  static const ATTENDANCE_CAMERA = '/attendance/camera';
 }
 
 class AppPages {
@@ -38,6 +40,12 @@ class AppPages {
     GetPage(
       name: Routes.ATTENDANCE,
       page: () => AttendancePage(),
+      binding: AttendanceBinding(),
+    ),
+    GetPage(
+      name: Routes.ATTENDANCE_CAMERA,
+      page: () => AttendanceCameraPage(),
+      // ⬇️ pakai controller yang sama
       binding: AttendanceBinding(),
     ),
   ];

@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'dart:async';
+import '../../../app/routes/app_router.dart';
 import '../controller/attendance_controller.dart';
 
 class AttendancePage extends StatelessWidget {
@@ -109,7 +110,13 @@ class AttendancePage extends StatelessWidget {
                             borderRadius: BorderRadius.circular(14),
                           ),
                         ),
-                        onPressed: c.checkIn,
+                        onPressed: () {
+                          Get.toNamed(
+                            Routes.ATTENDANCE_CAMERA,
+                            arguments: 'IN',
+                          );
+                        },
+                        // onPressed: c.checkIn,
                         child: const Text(
                           'CLOCK IN',
                           style: TextStyle(
@@ -130,7 +137,13 @@ class AttendancePage extends StatelessWidget {
                             borderRadius: BorderRadius.circular(14),
                           ),
                         ),
-                        onPressed: c.checkOut,
+                        onPressed: () {
+                          Get.toNamed(
+                            Routes.ATTENDANCE_CAMERA,
+                            arguments: 'OUT',
+                          );
+                        },
+                        // onPressed: c.checkOut,
                         child: const Text(
                           'CLOCK OUT',
                           style: TextStyle(
