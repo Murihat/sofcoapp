@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../app/routes/app_router.dart';
 import '../controller/dashboard_controller.dart';
 
 class DashboardPage extends StatelessWidget {
@@ -131,14 +132,7 @@ class DashboardPage extends StatelessWidget {
                             _MenuItem(
                               icon: Icons.access_time,
                               title: 'Attendance',
-                              onTap: () {
-                                Get.snackbar(
-                                  'Info',
-                                  'Attendance feature coming soon',
-                                  backgroundColor: const Color(0xFF203A43),
-                                  colorText: Colors.white,
-                                );
-                              },
+                              onTap: () => Get.toNamed(Routes.ATTENDANCE),
                             ),
                             _MenuItem(
                               icon: Icons.history,

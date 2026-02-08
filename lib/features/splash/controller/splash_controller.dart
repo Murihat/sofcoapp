@@ -8,6 +8,7 @@ class SplashController extends GetxController {
     super.onInit();
 
     Future.delayed(const Duration(seconds: 2), () {
+      print("Splash - ${AppStorage.getUser}");
       if (AppStorage.isLoggedIn()) {
         Get.offAllNamed(Routes.DASHBOARD);
       } else {
