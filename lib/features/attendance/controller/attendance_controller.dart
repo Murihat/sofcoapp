@@ -1,10 +1,7 @@
 import 'dart:io';
-
 import 'package:get/get.dart';
 import 'package:sofcotest/app/auth/data/model/user_model.dart';
-import '../../../app/helper/error_snackbar_helper.dart';
 import '../../../app/helper/image_compress_helper.dart';
-import '../../../app/helper/success_snackbar_helper.dart';
 import '../../../app/routes/app_router.dart';
 import '../../../app/storage/app_storage.dart';
 import '../data/datasource/attendance_datasource.dart';
