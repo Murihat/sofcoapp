@@ -1,6 +1,7 @@
 import '../../../storage/app_storage.dart';
 import '../../domain/interface/auth_interface.dart';
 import '../datasource/auth_datasource.dart';
+import '../model/user_model.dart';
 
 class AuthRepository implements AuthInterface {
   final AuthDatasource datasource;
@@ -8,9 +9,15 @@ class AuthRepository implements AuthInterface {
   AuthRepository(this.datasource);
 
   @override
-  Future<void> login(String email, String password) async {
-    final user = await datasource.login(email, password);
-    AppStorage.saveToken(user['id'].toString());
+  Future<UserModel> login(String email, String password) async {
+    final userMap = await datasource.login(email, password);
+
+    final user = UserModel.fromJson(userMap);
+
+    AppStorage.saveToken(user.id.toString());
+    AppStorage.saveUser(user.toJson());
+
+    return user;
   }
 
   @override

@@ -15,9 +15,10 @@ class AuthController extends GetxController {
   Future<void> login(String email, String password) async {
     try {
       loading.value = true;
-      await repo.login(email, password);
+      final user = await repo.login(email, password);
+      print('user_login: ${user.id} - ${user.fullName} - ${user.email}');
       SuccessSnackbarHelper.show('Login successful');
-      Get.offAllNamed(Routes.LOGIN);
+      Get.offAllNamed(Routes.DASHBOARD);
     } on AuthException catch (e) {
       ErrorSnackbarHelper.show(e.message);
     } catch (e) {
