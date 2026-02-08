@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'routes/app_router.dart';
 
 class App extends StatelessWidget {
@@ -6,11 +7,10 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      title: 'Sofco App',
+    return GetMaterialApp(
+      initialRoute: Routes.SPLASH,
+      getPages: AppPages.pages,
       debugShowCheckedModeBanner: false,
-      routerConfig: AppRouter.router,
-      theme: ThemeData(useMaterial3: true, colorSchemeSeed: Colors.blue),
     );
   }
 }
