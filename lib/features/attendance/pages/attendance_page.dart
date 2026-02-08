@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'dart:async';
 import '../../../app/routes/app_router.dart';
 import '../controller/attendance_controller.dart';
+import '../data/model/attendance_model.dart';
 
 class AttendancePage extends StatelessWidget {
   AttendancePage({super.key});
@@ -190,24 +191,31 @@ class AttendancePage extends StatelessWidget {
                                 const SizedBox(height: 8),
                             itemBuilder: (_, i) {
                               final item = c.history[i];
-                              return Card(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(12),
-                                ),
-                                child: ListTile(
-                                  leading: Icon(
-                                    item.type == 'IN'
-                                        ? Icons.login
-                                        : Icons.logout,
-                                    color: item.type == 'IN'
-                                        ? Colors.green
-                                        : Colors.redAccent,
+
+                              return InkWell(
+                                borderRadius: BorderRadius.circular(12),
+                                onTap: () =>
+                                    _showAttendanceDetail(context, item),
+                                child: Card(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(12),
                                   ),
-                                  title: Text(
-                                    '${item.date.day}-${item.date.month}-${item.date.year}',
-                                  ),
-                                  subtitle: Text(
-                                    '${item.type} at ${item.time}',
+                                  child: ListTile(
+                                    leading: Icon(
+                                      item.type == 'IN'
+                                          ? Icons.login
+                                          : Icons.logout,
+                                      color: item.type == 'IN'
+                                          ? Colors.green
+                                          : Colors.redAccent,
+                                    ),
+                                    title: Text(
+                                      '${item.date.day}-${item.date.month}-${item.date.year}',
+                                    ),
+                                    subtitle: Text(
+                                      '${item.type} at ${item.time}',
+                                    ),
+                                    trailing: const Icon(Icons.chevron_right),
                                   ),
                                 ),
                               );
@@ -222,6 +230,136 @@ class AttendancePage extends StatelessWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  void _showAttendanceDetail(BuildContext context, AttendanceModel item) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+      ),
+      builder: (_) {
+        return SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(16, 16, 16, 24),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                /// DRAG HANDLE
+                Center(
+                  child: Container(
+                    width: 40,
+                    height: 4,
+                    margin: const EdgeInsets.only(bottom: 16),
+                    decoration: BoxDecoration(
+                      color: Colors.grey.shade400,
+                      borderRadius: BorderRadius.circular(2),
+                    ),
+                  ),
+                ),
+
+                /// TITLE
+                Row(
+                  children: [
+                    Icon(
+                      item.type == 'IN' ? Icons.login : Icons.logout,
+                      color: item.type == 'IN'
+                          ? Colors.green
+                          : Colors.redAccent,
+                    ),
+                    const SizedBox(width: 8),
+                    Text(
+                      item.type == 'IN'
+                          ? 'Clock In Detail'
+                          : 'Clock Out Detail',
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+
+                const SizedBox(height: 16),
+
+                /// DATE
+                _DetailRow(
+                  label: 'Date',
+                  value:
+                      '${item.date.day}-${item.date.month}-${item.date.year}',
+                ),
+
+                /// TIME
+                _DetailRow(label: 'Time', value: item.time),
+
+                /// TYPE
+                _DetailRow(
+                  label: 'Type',
+                  value: item.type,
+                  valueColor: item.type == 'IN'
+                      ? Colors.green
+                      : Colors.redAccent,
+                ),
+
+                const SizedBox(height: 16),
+
+                /// PHOTO (OPTIONAL)
+                if (item.photoUrl != null) ...[
+                  const Text(
+                    'Photo',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 8),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(12),
+                    child: Image.network(
+                      item.photoUrl!,
+                      width: 280,
+                      height: 280,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ],
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
+class _DetailRow extends StatelessWidget {
+  final String label;
+  final String value;
+  final Color? valueColor;
+
+  const _DetailRow({required this.label, required this.value, this.valueColor});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 6),
+      child: Row(
+        children: [
+          SizedBox(
+            width: 80,
+            child: Text(label, style: const TextStyle(color: Colors.grey)),
+          ),
+          Expanded(
+            child: Text(
+              value,
+              style: TextStyle(
+                fontWeight: FontWeight.w600,
+                color: valueColor ?? Colors.black,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
