@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:sofcotest/app/auth/data/model/user_model.dart';
 import '../../../app/routes/app_router.dart';
 import '../../../app/storage/app_storage.dart';
