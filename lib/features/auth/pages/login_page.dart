@@ -33,8 +33,6 @@ class LoginPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     const SizedBox(height: 40),
-
-                    /// LOGO TEXT
                     const Text(
                       'SOFCO',
                       textAlign: TextAlign.center,
@@ -55,10 +53,7 @@ class LoginPage extends StatelessWidget {
                         color: Colors.white70,
                       ),
                     ),
-
                     const SizedBox(height: 48),
-
-                    /// CARD FORM
                     Container(
                       padding: const EdgeInsets.all(24),
                       decoration: BoxDecoration(
@@ -75,8 +70,6 @@ class LoginPage extends StatelessWidget {
                             ),
                           ),
                           const SizedBox(height: 24),
-
-                          /// EMAIL
                           TextField(
                             controller: email,
                             keyboardType: TextInputType.emailAddress,
@@ -87,8 +80,6 @@ class LoginPage extends StatelessWidget {
                             ),
                           ),
                           const SizedBox(height: 16),
-
-                          /// PASSWORD
                           TextField(
                             controller: pass,
                             obscureText: true,
@@ -98,10 +89,7 @@ class LoginPage extends StatelessWidget {
                               border: OutlineInputBorder(),
                             ),
                           ),
-
                           const SizedBox(height: 24),
-
-                          /// LOGIN BUTTON
                           Obx(
                             () => SizedBox(
                               width: double.infinity,
@@ -135,10 +123,7 @@ class LoginPage extends StatelessWidget {
                               ),
                             ),
                           ),
-
                           const SizedBox(height: 16),
-
-                          /// REGISTER
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [

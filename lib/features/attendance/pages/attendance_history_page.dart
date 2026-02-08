@@ -37,8 +37,6 @@ class AttendanceHistoryPage extends StatelessWidget {
           child: Column(
             children: [
               const SizedBox(height: 8),
-
-              /// DAY HEADER
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 12),
                 child: GridView.builder(
@@ -59,10 +57,7 @@ class AttendanceHistoryPage extends StatelessWidget {
                   ),
                 ),
               ),
-
               const SizedBox(height: 12),
-
-              /// CALENDAR CARD
               Expanded(
                 child: Container(
                   padding: const EdgeInsets.all(12),
@@ -126,7 +121,6 @@ class AttendanceHistoryPage extends StatelessWidget {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                /// DATE
                                 Text(
                                   '${date.day}',
                                   style: TextStyle(
@@ -136,10 +130,7 @@ class AttendanceHistoryPage extends StatelessWidget {
                                         : Colors.black,
                                   ),
                                 ),
-
                                 const Spacer(),
-
-                                /// DOT INDICATORS
                                 Row(
                                   children: [
                                     if (dayData.clockIn != null)
@@ -164,7 +155,6 @@ class AttendanceHistoryPage extends StatelessWidget {
     );
   }
 
-  /// DETAIL MODAL
   void _showAttendanceDetail(BuildContext context, AttendanceDayModel day) {
     showModalBottomSheet(
       context: context,
@@ -220,7 +210,6 @@ class AttendanceHistoryPage extends StatelessWidget {
   }
 }
 
-/// DOT
 class _Dot extends StatelessWidget {
   final Color color;
 
@@ -237,7 +226,6 @@ class _Dot extends StatelessWidget {
   }
 }
 
-/// DETAIL ROW
 class _DetailRow extends StatelessWidget {
   final String label;
   final String value;

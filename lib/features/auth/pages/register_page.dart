@@ -32,8 +32,6 @@ class RegisterPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     const SizedBox(height: 32),
-
-                    /// LOGO
                     const Text(
                       'SOFCO',
                       textAlign: TextAlign.center,
@@ -54,10 +52,7 @@ class RegisterPage extends StatelessWidget {
                         color: Colors.white70,
                       ),
                     ),
-
                     const SizedBox(height: 40),
-
-                    /// CARD REGISTER
                     Container(
                       padding: const EdgeInsets.all(24),
                       decoration: BoxDecoration(
@@ -74,8 +69,6 @@ class RegisterPage extends StatelessWidget {
                             ),
                           ),
                           const SizedBox(height: 24),
-
-                          /// NAME
                           TextField(
                             controller: name,
                             decoration: const InputDecoration(
@@ -85,8 +78,6 @@ class RegisterPage extends StatelessWidget {
                             ),
                           ),
                           const SizedBox(height: 16),
-
-                          /// EMAIL
                           TextField(
                             controller: email,
                             keyboardType: TextInputType.emailAddress,
@@ -97,8 +88,6 @@ class RegisterPage extends StatelessWidget {
                             ),
                           ),
                           const SizedBox(height: 16),
-
-                          /// PASSWORD
                           TextField(
                             controller: pass,
                             obscureText: true,
@@ -108,10 +97,7 @@ class RegisterPage extends StatelessWidget {
                               border: OutlineInputBorder(),
                             ),
                           ),
-
                           const SizedBox(height: 24),
-
-                          /// REGISTER BUTTON
                           Obx(
                             () => SizedBox(
                               width: double.infinity,
@@ -152,10 +138,7 @@ class RegisterPage extends StatelessWidget {
                               ),
                             ),
                           ),
-
                           const SizedBox(height: 16),
-
-                          /// BACK TO LOGIN
                           TextButton(
                             onPressed: () => Get.back(),
                             child: const Text('Already have an account? Login'),

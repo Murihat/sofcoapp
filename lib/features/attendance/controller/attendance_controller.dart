@@ -1,16 +1,19 @@
 import 'dart:io';
 import 'package:get/get.dart';
-import 'package:sofcotest/app/auth/data/model/user_model.dart';
-import 'package:sofcotest/features/attendance/data/model/attendance_day_model.dart';
+import '../../../app/auth/data/model/user_model.dart';
+import '../data/model/attendance_day_model.dart';
 import '../../../app/helper/error_snackbar_helper.dart';
 import '../../../app/helper/image_compress_helper.dart';
 import '../../../app/routes/app_router.dart';
 import '../../../app/storage/app_storage.dart';
-import '../data/datasource/attendance_datasource.dart';
 import '../data/model/attendance_model.dart';
+import '../data/repository/attendance_repository.dart';
 
 class AttendanceController extends GetxController {
-  final AttendanceDatasource _ds = AttendanceDatasource();
+  // final AttendanceDatasource _ds = AttendanceDatasource();
+  final AttendanceRepository _repo;
+  AttendanceController(this._repo);
+
   late final UserModel user;
 
   RxList<AttendanceModel> history = <AttendanceModel>[].obs;
@@ -29,9 +32,8 @@ class AttendanceController extends GetxController {
   }
 
   Future<void> loadHistory() async {
-    final data = await _ds.getHistory(user.id);
+    final data = await _repo.getHistory(user.id);
     history.value = data.map((e) => AttendanceModel.fromJson(e)).toList();
-    // ⬅️ WAJIB
     buildMonthlyAttendance(DateTime.now());
   }
 
@@ -40,8 +42,7 @@ class AttendanceController extends GetxController {
     required File imageFile,
   }) async {
     try {
-      // 🔴 STEP 1: CEK DULU
-      final alreadyExists = await _ds.hasAttendanceToday(
+      final alreadyExists = await _repo.hasAttendanceToday(
         userId: user.id,
         type: type,
       );
@@ -52,16 +53,13 @@ class AttendanceController extends GetxController {
               ? 'You have already clocked in today'
               : 'You have already clocked out today',
         );
-        return; // ⛔ STOP TOTAL
+        return;
       }
 
-      // 🟢 STEP 2: BARU UPLOAD FOTO
       final compressed = await ImageCompressHelper.compress(imageFile);
+      final photoUrl = await _repo.uploadPhoto(compressed, user.id);
 
-      final photoUrl = await _ds.uploadPhoto(compressed, user.id);
-
-      // 🟢 STEP 3: INSERT ATTENDANCE
-      await _ds.insertAttendance(
+      await _repo.insertAttendance(
         userId: user.id,
         type: type,
         photoUrl: photoUrl,
@@ -77,15 +75,12 @@ class AttendanceController extends GetxController {
     monthlyAttendance.clear();
 
     final lastDay = DateTime(month.year, month.month + 1, 0).day;
-
-    // generate 1 bulan
     for (int i = 1; i <= lastDay; i++) {
       monthlyAttendance.add(
         AttendanceDayModel(date: DateTime(month.year, month.month, i)),
       );
     }
 
-    // isi dari history
     for (final item in history) {
       final index = monthlyAttendance.indexWhere(
         (d) =>
@@ -102,8 +97,6 @@ class AttendanceController extends GetxController {
         monthlyAttendance[index].clockOut = item.time;
       }
     }
-
-    // 🔥 WAJIB agar Obx refresh
     monthlyAttendance.refresh();
   }
 }

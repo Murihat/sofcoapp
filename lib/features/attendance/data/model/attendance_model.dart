@@ -3,7 +3,7 @@ class AttendanceModel {
   final DateTime date;
   final String type; // IN / OUT
   final String time;
-  final String? photoUrl; // ✅ TAMBAHAN
+  final String? photoUrl;
 
   AttendanceModel({
     required this.id,
@@ -19,7 +19,7 @@ class AttendanceModel {
       date: DateTime.parse(json['attendance_date']),
       type: json['attendance_type'],
       time: json['attendance_time'],
-      photoUrl: json['photo_url'], // ✅ AMBIL DARI DB
+      photoUrl: json['photo_url'],
     );
   }
 }

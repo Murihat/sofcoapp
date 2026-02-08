@@ -52,10 +52,7 @@ class AttendancePage extends StatelessWidget {
                   ],
                 ),
               ),
-
               const SizedBox(height: 24),
-
-              /// LIVE CLOCK
               StreamBuilder<DateTime>(
                 stream: _clockStream(),
                 builder: (_, snapshot) {
@@ -93,10 +90,7 @@ class AttendancePage extends StatelessWidget {
                   );
                 },
               ),
-
               const SizedBox(height: 32),
-
-              /// CLOCK BUTTONS
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Row(
@@ -117,7 +111,6 @@ class AttendancePage extends StatelessWidget {
                             arguments: 'IN',
                           );
                         },
-                        // onPressed: c.checkIn,
                         child: const Text(
                           'CLOCK IN',
                           style: TextStyle(
@@ -144,7 +137,6 @@ class AttendancePage extends StatelessWidget {
                             arguments: 'OUT',
                           );
                         },
-                        // onPressed: c.checkOut,
                         child: const Text(
                           'CLOCK OUT',
                           style: TextStyle(
@@ -157,10 +149,7 @@ class AttendancePage extends StatelessWidget {
                   ],
                 ),
               ),
-
               const SizedBox(height: 32),
-
-              /// HISTORY SECTION (FIXED)
               Expanded(
                 child: Container(
                   padding: const EdgeInsets.all(16),
@@ -181,8 +170,6 @@ class AttendancePage extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 12),
-
-                      /// LIST VIEW MUST BE EXPANDED
                       Expanded(
                         child: Obx(
                           () => ListView.separated(
@@ -249,7 +236,6 @@ class AttendancePage extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                /// DRAG HANDLE
                 Center(
                   child: Container(
                     width: 40,
@@ -261,8 +247,6 @@ class AttendancePage extends StatelessWidget {
                     ),
                   ),
                 ),
-
-                /// TITLE
                 Row(
                   children: [
                     Icon(
@@ -283,20 +267,13 @@ class AttendancePage extends StatelessWidget {
                     ),
                   ],
                 ),
-
                 const SizedBox(height: 16),
-
-                /// DATE
                 _DetailRow(
                   label: 'Date',
                   value:
                       '${item.date.day}-${item.date.month}-${item.date.year}',
                 ),
-
-                /// TIME
                 _DetailRow(label: 'Time', value: item.time),
-
-                /// TYPE
                 _DetailRow(
                   label: 'Type',
                   value: item.type,
@@ -304,10 +281,7 @@ class AttendancePage extends StatelessWidget {
                       ? Colors.green
                       : Colors.redAccent,
                 ),
-
                 const SizedBox(height: 16),
-
-                /// PHOTO (OPTIONAL)
                 if (item.photoUrl != null) ...[
                   const Text(
                     'Photo',

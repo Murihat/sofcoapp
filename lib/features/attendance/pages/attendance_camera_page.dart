@@ -4,8 +4,6 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
-import '../../../app/helper/error_snackbar_helper.dart';
-import '../../../app/helper/success_snackbar_helper.dart';
 import '../../../app/routes/app_router.dart';
 import '../controller/attendance_controller.dart';
 
@@ -70,14 +68,9 @@ class _AttendanceCameraPageState extends State<AttendanceCameraPage> {
 
     try {
       setState(() => _isSubmitting = true);
-
       final XFile photo = await _cameraController!.takePicture();
-
       await c.submitAttendance(type: type, imageFile: File(photo.path));
-
-      // balik ke attendance page
       Get.until((route) => route.settings.name == Routes.ATTENDANCE);
-
       // snackbar sukses
       // SuccessSnackbarHelper.show('Attendance recorded successfully');
     } catch (e) {
@@ -104,10 +97,7 @@ class _AttendanceCameraPageState extends State<AttendanceCameraPage> {
           : SafeArea(
               child: Stack(
                 children: [
-                  /// FULLSCREEN CAMERA
                   Positioned.fill(child: CameraPreview(_cameraController!)),
-
-                  /// OVERLAY SELFIE GUIDE
                   Positioned.fill(
                     child: Container(
                       decoration: BoxDecoration(
@@ -125,8 +115,6 @@ class _AttendanceCameraPageState extends State<AttendanceCameraPage> {
                       ),
                     ),
                   ),
-
-                  /// TOP BAR
                   Positioned(
                     top: 40,
                     left: 16,
@@ -150,8 +138,6 @@ class _AttendanceCameraPageState extends State<AttendanceCameraPage> {
                       ],
                     ),
                   ),
-
-                  /// BOTTOM BUTTON
                   Positioned(
                     left: 16,
                     right: 16,

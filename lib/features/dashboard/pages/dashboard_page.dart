@@ -22,7 +22,6 @@ class DashboardPage extends StatelessWidget {
         child: SafeArea(
           child: Column(
             children: [
-              /// HEADER
               Padding(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 16,
@@ -46,10 +45,7 @@ class DashboardPage extends StatelessWidget {
                   ],
                 ),
               ),
-
               const SizedBox(height: 12),
-
-              /// CONTENT
               Expanded(
                 child: Container(
                   padding: const EdgeInsets.all(16),
@@ -62,7 +58,6 @@ class DashboardPage extends StatelessWidget {
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
-                        /// PROFILE CARD
                         Container(
                           padding: const EdgeInsets.all(16),
                           decoration: BoxDecoration(
@@ -108,10 +103,7 @@ class DashboardPage extends StatelessWidget {
                             ],
                           ),
                         ),
-
                         const SizedBox(height: 28),
-
-                        /// MENU TITLE
                         Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
@@ -120,8 +112,6 @@ class DashboardPage extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(height: 12),
-
-                        /// MENU GRID
                         GridView.count(
                           crossAxisCount: 2,
                           shrinkWrap: true,

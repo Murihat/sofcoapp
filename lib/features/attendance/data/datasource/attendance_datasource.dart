@@ -9,7 +9,6 @@ class AttendanceDatasource {
         'attendance_${userId}_${DateTime.now().millisecondsSinceEpoch}.jpg';
 
     await _client.storage.from('attendance_photos').upload(fileName, file);
-
     return _client.storage.from('attendance_photos').getPublicUrl(fileName);
   }
 
@@ -46,7 +45,6 @@ class AttendanceDatasource {
     });
   }
 
-  /// GET history
   Future<List<Map<String, dynamic>>> getHistory(int userId) async {
     final response = await _client
         .from('sofco_attendance')
