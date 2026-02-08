@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:get/get.dart';
 import 'package:sofcotest/app/auth/data/model/user_model.dart';
 import 'package:sofcotest/features/attendance/data/model/attendance_day_model.dart';
+import '../../../app/helper/error_snackbar_helper.dart';
 import '../../../app/helper/image_compress_helper.dart';
 import '../../../app/routes/app_router.dart';
 import '../../../app/storage/app_storage.dart';
@@ -38,13 +39,38 @@ class AttendanceController extends GetxController {
     required String type,
     required File imageFile,
   }) async {
-    final compressed = await ImageCompressHelper.compress(imageFile);
+    try {
+      // 🔴 STEP 1: CEK DULU
+      final alreadyExists = await _ds.hasAttendanceToday(
+        userId: user.id,
+        type: type,
+      );
 
-    final photoUrl = await _ds.uploadPhoto(compressed, user.id);
+      if (alreadyExists) {
+        ErrorSnackbarHelper.show(
+          type == 'IN'
+              ? 'You have already clocked in today'
+              : 'You have already clocked out today',
+        );
+        return; // ⛔ STOP TOTAL
+      }
 
-    await _ds.insertAttendance(userId: user.id, type: type, photoUrl: photoUrl);
+      // 🟢 STEP 2: BARU UPLOAD FOTO
+      final compressed = await ImageCompressHelper.compress(imageFile);
 
-    loadHistory();
+      final photoUrl = await _ds.uploadPhoto(compressed, user.id);
+
+      // 🟢 STEP 3: INSERT ATTENDANCE
+      await _ds.insertAttendance(
+        userId: user.id,
+        type: type,
+        photoUrl: photoUrl,
+      );
+
+      loadHistory();
+    } catch (e) {
+      ErrorSnackbarHelper.show('Failed to submit attendance');
+    }
   }
 
   void buildMonthlyAttendance(DateTime month) {

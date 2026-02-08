@@ -79,9 +79,9 @@ class _AttendanceCameraPageState extends State<AttendanceCameraPage> {
       Get.until((route) => route.settings.name == Routes.ATTENDANCE);
 
       // snackbar sukses
-      SuccessSnackbarHelper.show('Attendance recorded successfully');
+      // SuccessSnackbarHelper.show('Attendance recorded successfully');
     } catch (e) {
-      ErrorSnackbarHelper.show('Failed to submit attendance');
+      // ErrorSnackbarHelper.show('Failed to submit attendance');
     } finally {
       if (mounted) {
         setState(() => _isSubmitting = false);

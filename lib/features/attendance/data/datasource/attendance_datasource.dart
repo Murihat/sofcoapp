@@ -13,6 +13,23 @@ class AttendanceDatasource {
     return _client.storage.from('attendance_photos').getPublicUrl(fileName);
   }
 
+  Future<bool> hasAttendanceToday({
+    required int userId,
+    required String type,
+  }) async {
+    final today = DateTime.now().toIso8601String().split('T').first;
+
+    final result = await _client
+        .from('sofco_attendance')
+        .select('id')
+        .eq('user_id', userId)
+        .eq('attendance_type', type)
+        .eq('attendance_date', today)
+        .maybeSingle();
+
+    return result != null;
+  }
+
   Future<void> insertAttendance({
     required int userId,
     required String type,
