@@ -9,20 +9,17 @@ class ImageCompressHelper {
     final targetPath =
         '${dir.path}/${DateTime.now().millisecondsSinceEpoch}.jpg';
 
-    // ⬇️ RETURN XFile? di flutter_image_compress 2.4.0
     final XFile? compressed = await FlutterImageCompress.compressAndGetFile(
       file.absolute.path,
       targetPath,
-      quality: 60, // ideal 60–70
+      quality: 60,
       format: CompressFormat.jpeg,
     );
 
-    // kalau gagal compress, pakai file asli
     if (compressed == null) {
       return file;
     }
 
-    // 🔥 CONVERT XFile → File (WAJIB)
     return File(compressed.path);
   }
 }

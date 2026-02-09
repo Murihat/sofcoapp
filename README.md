@@ -24,7 +24,7 @@ A mobile attendance application built with **Flutter** and **GetX**.
    - Create a new account
    - Redirected to Login after successful registration
 4. **Login**
-   - User logs in with registered credentials
+   - User login with registered credentials
 5. **Dashboard**
    - Main entry point after login
 6. **Attendance**
