@@ -40,7 +40,7 @@ A mobile attendance application built with **Flutter** and **GetX**.
 
 - **Flutter**
 - **GetX** (State Management & Dependency Injection)
-- **Supabase** (Backend & Storage)
+- **Supabase** (Backend & Storage) - PostgreSQL
 
 ---
 
