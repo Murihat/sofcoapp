@@ -15,6 +15,8 @@ class AttendanceController extends GetxController {
 
   late final UserModel user;
 
+  RxBool isLoadingToday = true.obs;
+
   RxList<AttendanceModel> todayAttendance = <AttendanceModel>[].obs;
   RxList<AttendanceModel> history = <AttendanceModel>[].obs;
   RxList<AttendanceDayModel> monthlyAttendance = <AttendanceDayModel>[].obs;
@@ -33,10 +35,16 @@ class AttendanceController extends GetxController {
   }
 
   Future<void> loadTodayAttendance() async {
-    final data = await _repo.getTodayAttendance(user.id);
-    todayAttendance.value = data
-        .map((e) => AttendanceModel.fromJson(e))
-        .toList();
+    try {
+      isLoadingToday.value = true;
+
+      final data = await _repo.getTodayAttendance(user.id);
+      todayAttendance.value = data
+          .map((e) => AttendanceModel.fromJson(e))
+          .toList();
+    } finally {
+      isLoadingToday.value = false;
+    }
   }
 
   Future<void> loadMonthlyHistory() async {
@@ -74,6 +82,7 @@ class AttendanceController extends GetxController {
       );
 
       loadTodayAttendance();
+      loadMonthlyHistory();
     } catch (e) {
       ErrorSnackbarHelper.show('Failed to submit attendance');
     }

@@ -171,8 +171,18 @@ class AttendancePage extends StatelessWidget {
                       ),
                       const SizedBox(height: 12),
                       Expanded(
-                        child: Obx(
-                          () => ListView.separated(
+                        child: Obx(() {
+                          if (c.isLoadingToday.value) {
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }
+
+                          if (c.todayAttendance.isEmpty) {
+                            return const Center(child: Text("No Data"));
+                          }
+
+                          return ListView.separated(
                             itemCount: c.todayAttendance.length,
                             separatorBuilder: (_, __) =>
                                 const SizedBox(height: 8),
@@ -207,8 +217,8 @@ class AttendancePage extends StatelessWidget {
                                 ),
                               );
                             },
-                          ),
-                        ),
+                          );
+                        }),
                       ),
                     ],
                   ),
