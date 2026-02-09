@@ -187,7 +187,7 @@ class AttendancePage extends StatelessWidget {
                             separatorBuilder: (_, __) =>
                                 const SizedBox(height: 8),
                             itemBuilder: (_, i) {
-                              final item = c.history[i];
+                              final item = c.todayAttendance[i];
 
                               return InkWell(
                                 borderRadius: BorderRadius.circular(12),
