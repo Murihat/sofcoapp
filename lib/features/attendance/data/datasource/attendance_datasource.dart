@@ -12,6 +12,19 @@ class AttendanceDatasource {
     return _client.storage.from('attendance_photos').getPublicUrl(fileName);
   }
 
+  Future<List<Map<String, dynamic>>> getTodayAttendance(int userId) async {
+    final today = DateTime.now().toIso8601String().split('T').first;
+
+    final response = await _client
+        .from('sofco_attendance')
+        .select()
+        .eq('user_id', userId)
+        .eq('attendance_date', today)
+        .order('attendance_time');
+
+    return List<Map<String, dynamic>>.from(response);
+  }
+
   Future<bool> hasAttendanceToday({
     required int userId,
     required String type,

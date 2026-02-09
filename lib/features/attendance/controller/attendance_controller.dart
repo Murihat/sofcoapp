@@ -10,12 +10,12 @@ import '../data/model/attendance_model.dart';
 import '../data/repository/attendance_repository.dart';
 
 class AttendanceController extends GetxController {
-  // final AttendanceDatasource _ds = AttendanceDatasource();
   final AttendanceRepository _repo;
   AttendanceController(this._repo);
 
   late final UserModel user;
 
+  RxList<AttendanceModel> todayAttendance = <AttendanceModel>[].obs;
   RxList<AttendanceModel> history = <AttendanceModel>[].obs;
   RxList<AttendanceDayModel> monthlyAttendance = <AttendanceDayModel>[].obs;
 
@@ -28,10 +28,18 @@ class AttendanceController extends GetxController {
       return;
     }
     user = UserModel.fromJson(userMap);
-    loadHistory();
+    loadTodayAttendance();
+    loadMonthlyHistory();
   }
 
-  Future<void> loadHistory() async {
+  Future<void> loadTodayAttendance() async {
+    final data = await _repo.getTodayAttendance(user.id);
+    todayAttendance.value = data
+        .map((e) => AttendanceModel.fromJson(e))
+        .toList();
+  }
+
+  Future<void> loadMonthlyHistory() async {
     final data = await _repo.getHistory(user.id);
     history.value = data.map((e) => AttendanceModel.fromJson(e)).toList();
     buildMonthlyAttendance(DateTime.now());
@@ -65,7 +73,7 @@ class AttendanceController extends GetxController {
         photoUrl: photoUrl,
       );
 
-      loadHistory();
+      loadTodayAttendance();
     } catch (e) {
       ErrorSnackbarHelper.show('Failed to submit attendance');
     }

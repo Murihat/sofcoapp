@@ -173,7 +173,7 @@ class AttendancePage extends StatelessWidget {
                       Expanded(
                         child: Obx(
                           () => ListView.separated(
-                            itemCount: c.history.length,
+                            itemCount: c.todayAttendance.length,
                             separatorBuilder: (_, __) =>
                                 const SizedBox(height: 8),
                             itemBuilder: (_, i) {

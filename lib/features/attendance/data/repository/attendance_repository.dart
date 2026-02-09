@@ -6,6 +6,10 @@ class AttendanceRepository {
 
   AttendanceRepository(this.datasource);
 
+  Future<List<Map<String, dynamic>>> getTodayAttendance(int userId) {
+    return datasource.getTodayAttendance(userId);
+  }
+
   Future<List<Map<String, dynamic>>> getHistory(int userId) {
     return datasource.getHistory(userId);
   }

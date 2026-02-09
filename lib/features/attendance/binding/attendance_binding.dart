@@ -6,7 +6,6 @@ import '../data/repository/attendance_repository.dart';
 class AttendanceBinding extends Bindings {
   @override
   void dependencies() {
-    // Get.lazyPut<AttendanceController>(() => AttendanceController());
     Get.lazyPut(() => AttendanceDatasource());
     Get.lazyPut(() => AttendanceRepository(Get.find()));
     Get.lazyPut(() => AttendanceController(Get.find()));
